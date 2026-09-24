@@ -12,8 +12,8 @@ export const testBase = base.extend<{
     await context.close();
   },
 
-  PageObjectManager: async ({ BaseContext }, use: any) => {
-    const pageObjectManagerObject = new PageObjectManager(BaseContext.page);
+  PageObjectManager: async ({ page }, use: any) => {
+    const pageObjectManagerObject = new PageObjectManager(page);
     await use(pageObjectManagerObject);
   },
 });
