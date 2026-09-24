@@ -9,7 +9,7 @@ import { testBase } from "../utils/fixtures/contextFixture";
 for (const user of testUsers) {
   testBase(
     `Login actions - ${user.userName}`,
-    async ({ BaseContext, PageObjectManager }) => {
+    async ({ PageObjectManager }) => {
       // const context = await browser.newContext();
       // const page = await context.newPage();
 
@@ -27,7 +27,7 @@ for (const user of testUsers) {
       // const productDetailsPage = new ProductDetailsPage(page);
       // await productDetailsPage.verifyProductDetails(productName);
 
-      // const pageObjectManagerObject = new PageObjectManager(BaseContext);
+      // const pageObjectManagerObject = new PageObjectManager(page);
 
       const loginPage = await PageObjectManager.getLoginPage();
       await loginPage.goTo();

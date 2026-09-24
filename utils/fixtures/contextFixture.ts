@@ -13,7 +13,7 @@ export const testBase = base.extend<{
   },
 
   PageObjectManager: async ({ BaseContext }, use: any) => {
-    const pageObjectManagerObject = new PageObjectManager(BaseContext);
+    const pageObjectManagerObject = new PageObjectManager(BaseContext.page);
     await use(pageObjectManagerObject);
   },
 });
