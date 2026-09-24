@@ -1,4 +1,5 @@
 import { Page, Locator, expect } from "@playwright/test";
+import { CategoryPage } from "./categoryPage";
 
 export class ProductDetailsPage {
   page: Page;
@@ -7,7 +8,9 @@ export class ProductDetailsPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.productNameonDetailspage = page.locator(".inventory_details_name");
+    this.productNameonDetailspage = page.locator(
+      '.inventory_details [data-test="inventory-item-name"]'
+    );
     this.addtoCartvisible = page.getByText("Add to cart");
   }
 

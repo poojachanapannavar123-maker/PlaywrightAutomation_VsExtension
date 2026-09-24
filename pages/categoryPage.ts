@@ -1,4 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { getRandomIndex } from "../utils/helper";
 
 export class CategoryPage {
   page: Page;
@@ -11,24 +12,36 @@ export class CategoryPage {
     this.productText = page.locator(".inventory_item_name ");
   }
 
-  async searchProduct(productName: string) {
-    const titles = await this.page
-      .locator(".inventory_item_name ")
-      .allTextContents();
-    console.log(titles);
+  //   async searchProduct(productName: string) {
+  //     const titles = await this.page
+  //       .locator(".inventory_item_name ")
+  //       .allTextContents();
+  //     console.log(titles);
 
-    const count = await this.productList.count();
-    for (let i = 0; i < count; i++) {
-      const product = this.productList.nth(i);
+  //     const count = await this.productList.count();
+  //     for (let i = 0; i < count; i++) {
+  //       const product = this.productList.nth(i);
 
-      const productText = await product
-        .locator(".inventory_item_name ")
-        .textContent();
+  //       const productText = await product
+  //         .locator(".inventory_item_name ")
+  //         .textContent();
 
-      if (productText?.trim() === productName) {
-        await product.locator(".inventory_item_name ").click();
-        break;
-      }
-    }
+  //       if (productText?.trim() === productName) {
+  //         await product.locator(".inventory_item_name ").click();
+  //         break;
+  //       }
+  //     }
+  //   }
+
+  async randomlypickedcategory(): Promise<string> {
+    const count: number = await this.productList.count();
+    const randomIndex: number = getRandomIndex(count);
+    const selectedproduct = this.productList.nth(randomIndex);
+    const productName = await selectedproduct
+      .locator('[data-test="inventory-item-name"]')
+      .innerText();
+    await selectedproduct.locator('[data-test$="-title-link"]').click();
+    await expect(this.page).toHaveURL(/inventory-item\.html/);
+    return productName;
   }
 }
