@@ -9,8 +9,8 @@ export class PageObjectManager {
   categoryPage: CategoryPage;
   productDetailsPage: ProductDetailsPage;
 
-  constructor(page: Page) {
-    this.page = page;
+  constructor(BaseContext: Page) {
+    this.page = BaseContext;
     this.loginPage = new LoginPage(this.page);
     this.categoryPage = new CategoryPage(this.page);
     this.productDetailsPage = new ProductDetailsPage(this.page);
