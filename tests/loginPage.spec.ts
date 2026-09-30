@@ -4,19 +4,20 @@ import test from "@playwright/test";
 // import { ProductDetailsPage } from "../pages/productDetailsPage";
 // import { PageObjectManager } from "../pages/pageObjectManager";
 import { testUsers } from "../testdata/credentials";
-import { testBase } from "../utils/fixtures/contextFixture";
+import { testBase } from "../fixtures/contextFixture";
 
 for (const user of testUsers) {
   testBase.describe("Sauce Demo", async () => {
     testBase(
       `Login actions - ${user.userName}`,
+      { tag: "@smoke" },
       async ({ PageObjectManager }) => {
         // const context = await browser.newContext();
         // const page = await context.newPage();
 
         // let userName = process.env.USERNAME!;
         // let password = process.env.PASSWORD!;
-        let productName: string;
+        let productName = "Sauce Labs Backpack";
 
         // const loginPage = new LoginPage(page);
         // await loginPage.goTo();
@@ -30,18 +31,18 @@ for (const user of testUsers) {
 
         // const pageObjectManagerObject = new PageObjectManager(page);
 
-        await test.step(`Login actions - ${user.userName}`, async () => {
+        await test.step(`TID1 - @login Login actions - ${user.userName}`, async () => {
           const loginPage = await PageObjectManager.getLoginPage();
           await loginPage.goTo();
           await loginPage.loginMethod(user.userName, user.password);
         });
 
-        await test.step("Category page actions", async () => {
+        await test.step("TID2 - @category Category page actions", async () => {
           const categoryPage = await PageObjectManager.getCategoryPage();
           productName = await categoryPage.randomlypickedcategory();
         });
 
-        await test.step("Product details Page actions", async () => {
+        await test.step("TID3 - @pdp Product details Page actions", async () => {
           const productDetailsPage =
             await PageObjectManager.getProductDetailsPage();
           await productDetailsPage.verifyProductDetails(productName);
