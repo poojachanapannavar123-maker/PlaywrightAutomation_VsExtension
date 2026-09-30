@@ -8,7 +8,7 @@
     "webkit": "npx playwright test --project=webkit",
     "firefox": "npx playwright test --project=firefox",
     "headed": "npx playwright test --headed",
-    "smoke": "npx playwright test --grep @smoke",
+    "smoke": "npx playwright test --grep @login",
     "report": "npx playwright show-report"
   },
   "keywords": [],
