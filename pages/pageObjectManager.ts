@@ -1,30 +1,37 @@
-import { CategoryPage } from "./categoryPage";
+import { ProductsPage } from "./productsPage";
 import { LoginPage } from "./loginPage";
 import { Page } from "@playwright/test";
 import { ProductDetailsPage } from "./productDetailsPage";
+import { CartPage } from "./cartPage";
 
 export class PageObjectManager {
   page: Page;
   loginPage: LoginPage;
-  categoryPage: CategoryPage;
+  categoryPage: ProductsPage;
   productDetailsPage: ProductDetailsPage;
+  verifyCartPage: CartPage;
 
-  constructor(BaseContext: Page) {
-    this.page = BaseContext;
+  constructor(page: Page) {
+    this.page = page;
     this.loginPage = new LoginPage(this.page);
-    this.categoryPage = new CategoryPage(this.page);
+    this.categoryPage = new ProductsPage(this.page);
     this.productDetailsPage = new ProductDetailsPage(this.page);
+    this.verifyCartPage = new CartPage(this.page);
   }
 
   async getLoginPage() {
     return this.loginPage;
   }
 
-  async getCategoryPage() {
+  async getProductsPage() {
     return this.categoryPage;
   }
 
   async getProductDetailsPage() {
     return this.productDetailsPage;
+  }
+
+  async getCartPage() {
+    return this.verifyCartPage;
   }
 }
