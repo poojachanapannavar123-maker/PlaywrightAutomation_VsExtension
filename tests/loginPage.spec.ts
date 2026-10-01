@@ -1,14 +1,9 @@
-import test from "@playwright/test";
-// import { LoginPage } from "../pages/loginPage";
-// import { CategoryPage } from "../pages/categoryPage";
-// import { ProductDetailsPage } from "../pages/productDetailsPage";
-// import { PageObjectManager } from "../pages/pageObjectManager";
 import { testUsers } from "../testdata/credentials";
-import { testBase } from "../fixtures/contextFixture";
+import { test } from "../fixtures/contextFixture";
 
 for (const user of testUsers) {
-  testBase.describe("Sauce Demo", () => {
-    testBase(
+  test.describe("Sauce Demo", () => {
+    test(
       `TID001-Login actions - ${user.userName}`,
       { tag: "@login" },
       async ({ PageObjectManager }) => {
@@ -18,7 +13,7 @@ for (const user of testUsers) {
       }
     );
 
-    testBase(
+    test(
       `TID002-category actions - ${user.userName}`,
       { tag: "@category" },
       async ({ PageObjectManager }) => {
@@ -30,7 +25,7 @@ for (const user of testUsers) {
       }
     );
 
-    testBase(
+    test(
       `TID003-product description page actions - ${user.userName}`,
       { tag: "@pdp" },
       async ({ PageObjectManager }) => {
