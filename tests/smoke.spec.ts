@@ -64,7 +64,7 @@ for (const user of testUsers) {
     );
 
     test(
-      `TID012- Cart Badge count verification - ${user.userName}`,
+      `TID012 - Cart Badge count verification - ${user.userName}`,
       { tag: "@basketcount" },
       async ({ loginAs, productsPage }) => {
         await loginAs(user.userName, user.password);
