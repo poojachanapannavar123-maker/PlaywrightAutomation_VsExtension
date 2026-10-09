@@ -23,7 +23,9 @@ export class ProductDetailsPage {
     this.descriptiononpdp = page.locator(
       '.inventory_details [data-test="inventory-item-desc"]'
     );
-    this.addtoCartvisible = page.getByText("Add to cart");
+    this.addtoCartvisible = page
+      .locator(".inventory_details")
+      .getByRole("button", { name: "Add to cart", exact: true });
 
     this.removeButton = page.getByRole("button", { name: "Remove" });
     this.cartBadge = this.page.locator('[data-test="shopping-cart-badge"]');
@@ -46,8 +48,13 @@ export class ProductDetailsPage {
   }
 
   async verifyRemovebutton() {
-    await expect(this.cartBadge).toBeVisible();
+    await expect(this.addtoCartvisible).toBeVisible();
+    await expect(this.cartBadge).not.toBeVisible();
+
+    await this.addtoCartvisible.click();
     await expect(this.removeButton).toBeVisible();
+
+    await expect(this.cartBadge).toHaveText("1");
     await this.removeButton.click();
     await expect(this.addtoCartvisible).toBeVisible();
     await expect(this.cartBadge).not.toBeVisible();

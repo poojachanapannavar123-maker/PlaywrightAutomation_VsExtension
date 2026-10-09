@@ -14,7 +14,7 @@ export class ProductsPage {
     this.productList = page.locator(".inventory_item");
     this.productText = page.locator(".inventory_item_name ");
     this.cartIcon = page.locator('[data-test="shopping-cart-link"]');
-    this.cartBadge = this.page.locator('[data-test="shopping-cart-badge"]');
+    this.cartBadge = page.locator('[data-test="shopping-cart-badge"]');
   }
 
   async randomlypickedproduct(): Promise<{
