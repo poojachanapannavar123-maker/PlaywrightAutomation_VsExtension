@@ -17,16 +17,27 @@ export class ProductsPage {
     this.cartBadge = this.page.locator('[data-test="shopping-cart-badge"]');
   }
 
-  async randomlypickedproduct(): Promise<string> {
+  async randomlypickedproduct(): Promise<{
+    productName: string;
+    productPrice: string;
+    productImage: string;
+  }> {
     const count: number = await this.productList.count();
     const randomIndex: number = getRandomIndex(count);
     const selectedproduct = this.productList.nth(randomIndex);
     const productName = await selectedproduct
       .locator('[data-test="inventory-item-name"]')
       .innerText();
+    const productPrice = await selectedproduct
+      .locator('[data-test="inventory-item-price"]')
+      .innerText();
+    console.log("Listing price:", productPrice);
+    const productImage = await selectedproduct
+      .locator(".inventory_item_img img")
+      .getAttribute("src");
     await selectedproduct.locator('[data-test$="-title-link"]').click();
     await expect(this.page).toHaveURL(/inventory-item\.html/);
-    return productName;
+    return { productName, productPrice, productImage: productImage ?? "" };
   }
 
   async goToCart() {

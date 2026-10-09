@@ -1,13 +1,38 @@
 import { test as base } from "@playwright/test";
-import { PageObjectManager } from "../pages/pageObjectManager";
+import { LoginPage } from "../pages/loginPage";
+import { ProductsPage } from "../pages/productsPage";
+import { ProductDetailsPage } from "../pages/productDetailsPage";
+import { CartPage } from "../pages/cartPage";
 
 type MyFixtures = {
-  PageObjectManager: PageObjectManager;
+  loginPage: LoginPage;
+  productsPage: ProductsPage;
+  productDetailsPage: ProductDetailsPage;
+  cartPage: CartPage;
+  loginAs: (userName: string, password: string) => Promise<void>;
 };
 
 export const test = base.extend<MyFixtures>({
-  PageObjectManager: async ({ page }, use) => {
-    const pageObjectManagerObject = new PageObjectManager(page);
-    await use(pageObjectManagerObject);
+  loginPage: async ({ page }, use) => {
+    await use(new LoginPage(page));
+  },
+
+  loginAs: async ({ loginPage }, use) => {
+    await use(async (userName, password) => {
+      await loginPage.goTo();
+      await loginPage.validLoginMethod(userName, password);
+    });
+  },
+
+  productsPage: async ({ page }, use) => {
+    await use(new ProductsPage(page));
+  },
+
+  productDetailsPage: async ({ page }, use) => {
+    await use(new ProductDetailsPage(page));
+  },
+
+  cartPage: async ({ page }, use) => {
+    await use(new CartPage(page));
   },
 });
