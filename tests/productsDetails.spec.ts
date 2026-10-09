@@ -1,0 +1,46 @@
+import { testUsers, products } from "../testdata/credentials";
+import { test } from "../fixtures/contextFixture";
+
+for (const user of testUsers) {
+  test.describe("Sauce Demo", () => {
+    test(
+      `TID004-product description page actions - ${user.userName}`,
+      { tag: ["@pdp", "@regression"] },
+      async ({ loginAs, productsPage, productDetailsPage }) => {
+        test.skip(
+          user.userName === "visual_user",
+          "PDP price consistency test is for standard users"
+        );
+
+        await loginAs(user.userName, user.password);
+        const selectedProduct = await productsPage.randomlypickedproduct();
+
+        await productDetailsPage.verifyProductDetails(
+          selectedProduct.productName,
+          selectedProduct.productPrice,
+          selectedProduct.productImage
+        );
+      }
+    );
+
+    test(
+      `TID005-verify add to cart button changes to remove-${user.userName}`,
+      { tag: ["@pdp", "@regression"] },
+      async ({ loginAs, productsPage, productDetailsPage }) => {
+        await loginAs(user.userName, user.password);
+        await productsPage.randomlypickedproduct();
+        await productDetailsPage.verifyRemovebutton();
+      }
+    );
+
+    test(
+      `TID006-Verify Back to Products navigation -${user.userName}`,
+      { tag: ["@pdp", "@regression"] },
+      async ({ loginAs, productsPage, productDetailsPage }) => {
+        await loginAs(user.userName, user.password);
+        await productsPage.randomlypickedproduct();
+        await productDetailsPage.verifyBacktoProductsNavigation();
+      }
+    );
+  });
+}

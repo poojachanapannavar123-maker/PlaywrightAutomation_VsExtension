@@ -4,90 +4,82 @@ import { test } from "../fixtures/contextFixture";
 for (const user of testUsers) {
   test.describe("Sauce Demo", () => {
     test(
-      `TID001-Login actions - ${user.userName}`,
+      `TID007-Login actions - ${user.userName}`,
       { tag: "@login" },
-      async ({ PageObjectManager }) => {
-        const loginPage = await PageObjectManager.getLoginPage();
-        await loginPage.goTo();
-        await loginPage.loginMethod(user.userName, user.password);
+      async ({ loginAs }) => {
+        await loginAs(user.userName, user.password);
       }
     );
 
     test(
-      `TID002-category actions - ${user.userName}`,
+      `TID008-category actions - ${user.userName}`,
       { tag: "@category" },
-      async ({ PageObjectManager }) => {
-        const loginPage = await PageObjectManager.getLoginPage();
-        await loginPage.goTo();
-        await loginPage.loginMethod(user.userName, user.password);
-        const productsPage = await PageObjectManager.getProductsPage();
+      async ({ loginAs, productsPage }) => {
+        await loginAs(user.userName, user.password);
         const productName = await productsPage.randomlypickedproduct();
       }
     );
 
     test(
-      `TID003-product description page actions - ${user.userName}`,
+      `TID009-product description page actions - ${user.userName}`,
       { tag: "@pdp" },
-      async ({ PageObjectManager }) => {
-        const loginPage = await PageObjectManager.getLoginPage();
-        await loginPage.goTo();
-        await loginPage.loginMethod(user.userName, user.password);
-        const productsPage = await PageObjectManager.getProductsPage();
-        const productName = await productsPage.randomlypickedproduct();
-        const productDetailsPage =
-          await PageObjectManager.getProductDetailsPage();
-        await productDetailsPage.verifyProductDetails(productName);
+      async ({ loginAs, productsPage, productDetailsPage }) => {
+        test.skip(
+          user.userName === "visual_user",
+          "PDP price consistency test is for standard users"
+        );
+        await loginAs(user.userName, user.password);
+
+        const selectedProduct = await productsPage.randomlypickedproduct();
+
+        await productDetailsPage.verifyProductDetails(
+          selectedProduct.productName,
+          selectedProduct.productPrice,
+          selectedProduct.productImage
+        );
       }
     );
 
     test(
-      `TID004- Add selected product to the cart - ${user.userName}`,
+      `TID010- Add selected product to the cart - ${user.userName}`,
       { tag: "@AddtoCart" },
-      async ({ PageObjectManager }) => {
-        const loginPage = await PageObjectManager.getLoginPage();
-        await loginPage.goTo();
-        await loginPage.loginMethod(user.userName, user.password);
-        const productsPage = await PageObjectManager.getProductsPage();
+      async ({ loginAs, productsPage }) => {
+        await loginAs(user.userName, user.password);
+
         await productsPage.addToCartMethod();
       }
     );
 
     test(
-      `TID005- Cart page verification - ${user.userName}`,
+      `TID011- Cart page verification - ${user.userName}`,
       { tag: "@verifycart" },
-      async ({ PageObjectManager }) => {
-        const loginPage = await PageObjectManager.getLoginPage();
-        await loginPage.goTo();
-        await loginPage.loginMethod(user.userName, user.password);
-        const productsPage = await PageObjectManager.getProductsPage();
+      async ({ loginAs, productsPage, cartPage }) => {
+        await loginAs(user.userName, user.password);
+
         const productName = await productsPage.addToCartMethod();
         await productsPage.goToCart();
-        const cartPage = await PageObjectManager.getCartPage();
+
         await cartPage.verifyCartDetails(productName);
       }
     );
 
     test(
-      `TID006- Cart Badge count verification - ${user.userName}`,
+      `TID012- Cart Badge count verification - ${user.userName}`,
       { tag: "@basketcount" },
-      async ({ PageObjectManager }) => {
-        const loginPage = await PageObjectManager.getLoginPage();
-        await loginPage.goTo();
-        await loginPage.loginMethod(user.userName, user.password);
-        const productsPage = await PageObjectManager.getProductsPage();
+      async ({ loginAs, productsPage }) => {
+        await loginAs(user.userName, user.password);
+
         await productsPage.addToCartMethod();
         await productsPage.verifyCartBadge("1");
       }
     );
 
     test(
-      `TID007- Search product - ${user.userName}`,
+      `TID013- Search product - ${user.userName}`,
       { tag: "@filteredproduct" },
-      async ({ PageObjectManager }) => {
-        const loginPage = await PageObjectManager.getLoginPage();
-        await loginPage.goTo();
-        await loginPage.loginMethod(user.userName, user.password);
-        const productsPage = await PageObjectManager.getProductsPage();
+      async ({ loginAs, productsPage }) => {
+        await loginAs(user.userName, user.password);
+
         await productsPage.filteredProduct(products);
       }
     );
