@@ -9,14 +9,14 @@ export class CartPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.productNameoncartPage = this.page.locator(
+    this.productNameoncartPage = page.locator(
       '.cart_item [data-test="inventory-item-name"]'
     );
-    this.removebuttonvisible = this.page.getByRole("button", {
+    this.removebuttonvisible = page.getByRole("button", {
       name: "Remove",
     });
 
-    this.continueshoppingbuttononcart = this.page.getByRole("button", {
+    this.continueshoppingbuttononcart = page.getByRole("button", {
       name: "Continue Shopping",
     });
 
