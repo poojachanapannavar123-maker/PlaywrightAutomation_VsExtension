@@ -10,7 +10,9 @@
     "headed": "npx playwright test --headed",
     "smoke": "npx playwright test --grep @login",
     "report": "npx playwright show-report",
-    "workers":"npx playwright test --workers=2"
+    "workers":"npx playwright test --workers=2",
+    "qa":"ENV=QA npx playwright test",
+    "uat":"ENV=UAT npx playwright test"
   },
   "keywords": [],
   "author": "",

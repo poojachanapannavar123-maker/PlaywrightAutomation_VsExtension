@@ -5,9 +5,17 @@ import { defineConfig, devices } from "@playwright/test";
  * https://github.com/motdotla/dotenv
  */
 import dotenv from "dotenv";
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, ".env") });
-dotenv.config();
+
+const env = (process.env.ENV || "qa").toLowerCase();
+
+if (!["qa", "uat"].includes(env)) {
+  throw new Error(`unsupported environment:${env}`);
+}
+dotenv.config({ path: `.env.${env}` });
+
+if (!process.env.BASE_URL) {
+  throw new Error(`BASE_URL is missing for ${env}`);
+}
 
 /**
  * See https://playwright.dev/docs/test-configuration.
