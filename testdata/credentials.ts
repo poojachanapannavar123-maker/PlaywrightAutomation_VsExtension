@@ -10,3 +10,5 @@ export const testUsers = process.env.CI
       },
     ]
   : credentials[env].users;
+
+export const products = credentials[env].productkeyword;

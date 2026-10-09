@@ -45,10 +45,16 @@ export class ProductsPage {
     });
     await this.addToCart.click();
     return productName;
-    //  await expect(this.page).toHaveURL(/cart\.html/);
   }
 
   async verifyCartBadge(count: string): Promise<void> {
     await expect(this.cartBadge).toHaveText(count);
+  }
+
+  async filteredProduct(productkeyword: string) {
+    const matchingProduct = this.productList.filter({
+      hasText: productkeyword,
+    });
+    await expect(matchingProduct).toBeVisible();
   }
 }

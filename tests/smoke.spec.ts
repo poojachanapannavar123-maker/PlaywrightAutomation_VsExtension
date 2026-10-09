@@ -1,4 +1,4 @@
-import { testUsers } from "../testdata/credentials";
+import { testUsers, products } from "../testdata/credentials";
 import { test } from "../fixtures/contextFixture";
 
 for (const user of testUsers) {
@@ -77,6 +77,18 @@ for (const user of testUsers) {
         const productsPage = await PageObjectManager.getProductsPage();
         await productsPage.addToCartMethod();
         await productsPage.verifyCartBadge("1");
+      }
+    );
+
+    test(
+      `TID007- Search product - ${user.userName}`,
+      { tag: "@filteredproduct" },
+      async ({ PageObjectManager }) => {
+        const loginPage = await PageObjectManager.getLoginPage();
+        await loginPage.goTo();
+        await loginPage.loginMethod(user.userName, user.password);
+        const productsPage = await PageObjectManager.getProductsPage();
+        await productsPage.filteredProduct(products);
       }
     );
   });
