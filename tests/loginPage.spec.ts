@@ -5,14 +5,15 @@ for (const user of testUsers) {
   test(
     `TID001 Successful Login ${user.userName}`,
     { tag: ["@login", "@smoke"] },
-    async ({ loginAs }) => {
+    async ({ loginAs, productsPage }) => {
       await loginAs(user.userName, user.password);
+      await productsPage.verifyproductListVisible();
     }
   );
 }
 
 test(
-  `TD002 Invalid Login`,
+  `TID002 Invalid Login`,
   { tag: ["@login", "@regression"] },
   async ({ loginPage }) => {
     await loginPage.goTo();

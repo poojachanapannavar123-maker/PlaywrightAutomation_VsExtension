@@ -16,7 +16,7 @@ for (const user of testUsers) {
       { tag: "@category" },
       async ({ loginAs, productsPage }) => {
         await loginAs(user.userName, user.password);
-        const productName = await productsPage.randomlypickedproduct();
+        await productsPage.randomlypickedproduct();
       }
     );
 

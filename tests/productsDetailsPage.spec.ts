@@ -4,7 +4,7 @@ import { test } from "../fixtures/contextFixture";
 for (const user of testUsers) {
   test.describe("Sauce Demo", () => {
     test(
-      `TID004-product description page actions - ${user.userName}`,
+      `TID008-product description page actions - ${user.userName}`,
       { tag: ["@pdp", "@regression"] },
       async ({ loginAs, productsPage, productDetailsPage }) => {
         test.skip(
@@ -24,7 +24,7 @@ for (const user of testUsers) {
     );
 
     test(
-      `TID005-verify add to cart button changes to remove-${user.userName}`,
+      `TID009-verify add to cart button changes to remove-${user.userName}`,
       { tag: ["@pdp", "@regression"] },
       async ({ loginAs, productsPage, productDetailsPage }) => {
         await loginAs(user.userName, user.password);
@@ -34,7 +34,7 @@ for (const user of testUsers) {
     );
 
     test(
-      `TID006-Verify Back to Products navigation -${user.userName}`,
+      `TID010-Verify Back to Products navigation -${user.userName}`,
       { tag: ["@pdp", "@regression"] },
       async ({ loginAs, productsPage, productDetailsPage }) => {
         await loginAs(user.userName, user.password);
