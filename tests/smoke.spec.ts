@@ -56,10 +56,11 @@ for (const user of testUsers) {
       async ({ loginAs, productsPage, cartPage }) => {
         await loginAs(user.userName, user.password);
 
-        const productName = await productsPage.addToCartMethod();
+        const { productName, productPrice } =
+          await productsPage.addToCartMethod();
         await productsPage.goToCart();
 
-        await cartPage.verifyCartDetails(productName);
+        await cartPage.verifyCartDetails(productName, productPrice);
       }
     );
 
