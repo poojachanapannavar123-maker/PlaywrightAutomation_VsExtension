@@ -43,4 +43,13 @@ for (const user of testUsers) {
       }
     );
   });
+
+  test(
+    `TID017 click product using parameterized locator - ${user.userName}`,
+    { tag: ["@products", "@regression"] },
+    async ({ loginAs, productsPage }) => {
+      await loginAs(user.userName, user.password);
+      await productsPage.clickProductName("Sauce Labs Backpack");
+    }
+  );
 }

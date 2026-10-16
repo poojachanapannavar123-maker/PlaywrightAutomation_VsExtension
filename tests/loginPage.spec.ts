@@ -1,6 +1,8 @@
 import { testUsers } from "../testdata/credentials";
 import { test } from "../fixtures/contextFixture";
 
+const expectedproductCount = 6;
+
 test.describe("Sauce demo Login Page", () => {
   for (const user of testUsers) {
     test(
@@ -8,7 +10,7 @@ test.describe("Sauce demo Login Page", () => {
       { tag: ["@login", "@smoke"] },
       async ({ loginAs, productsPage }) => {
         await loginAs(user.userName, user.password);
-        await productsPage.verifyproductListVisible();
+        await productsPage.verifyproductListVisible(expectedproductCount);
       }
     );
   }

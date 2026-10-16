@@ -21,9 +21,19 @@ export class ProductsPage {
     this.cartBadge = page.locator('[data-test="shopping-cart-badge"]');
   }
 
-  async verifyproductListVisible() {
+  /**
+   * click the product name using parameterized locator
+   * @param productName
+   * @return Promise will resolves once after the respective productname clicked
+   * @author Pooja
+   */
+  async clickProductName(productName: string): Promise<void> {
+    this.page.locator(`//*[contains(text(),"${productName}")]`).click();
+  }
+
+  async verifyproductListVisible(expectedCount: number): Promise<void> {
     await expect(this.productListContainer).toBeVisible();
-    await expect(this.product).toHaveCount(6);
+    await expect(this.product).toHaveCount(expectedCount);
   }
   async randomlypickedproduct(): Promise<{
     productName: string;
@@ -48,11 +58,11 @@ export class ProductsPage {
     return { productName, productPrice, productImage: productImage ?? "" };
   }
 
-  async goToCart() {
+  async goToCart(): Promise<void> {
     await this.cartIcon.click();
   }
 
-  async addToCartMethod() {
+  async addToCartMethod(): Promise<string> {
     const count: number = await this.product.count();
     const availableProductsIndexes: number[] = [];
 
@@ -93,7 +103,7 @@ export class ProductsPage {
     await expect(this.cartBadge).toHaveText(count);
   }
 
-  async filteredProduct(productkeyword: string) {
+  async filteredProduct(productkeyword: string): Promise<void> {
     const matchingProduct = this.product.filter({
       hasText: productkeyword,
     });

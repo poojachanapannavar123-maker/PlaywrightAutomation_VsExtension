@@ -39,15 +39,33 @@ export class ProductDetailsPage {
     productPrice: string,
     productImage: string
   ) {
-    await expect(this.productNameonDetailspage).toHaveText(productName);
-    await expect(this.priceonpdp).toHaveText(productPrice);
-    await expect(this.imageonpdp).toHaveAttribute("src", productImage);
-    await expect(this.descriptiononpdp).not.toBeEmpty();
-    await expect(this.addtoCartvisible).toBeVisible();
-    await expect(this.addtoCartvisible).toBeEnabled();
+    await expect(
+      this.productNameonDetailspage,
+      "Product name on the details page does not match the expected product name"
+    ).toHaveText(productName);
+    await expect(
+      this.priceonpdp,
+      "Product price on the details page does not match the expected product price"
+    ).toHaveText(productPrice);
+    await expect(
+      this.imageonpdp,
+      "Product image source does not match the expected image"
+    ).toHaveAttribute("src", productImage);
+    await expect(
+      this.descriptiononpdp,
+      "Product description should not be empty"
+    ).not.toBeEmpty();
+    await expect(
+      this.addtoCartvisible,
+      "Add to Cart button should be visible"
+    ).toBeVisible();
+    await expect(
+      this.addtoCartvisible,
+      "Add to Cart button should be enabled"
+    ).toBeEnabled();
   }
 
-  async verifyRemovebutton() {
+  async verifyRemovebutton(): Promise<void> {
     await expect(this.addtoCartvisible).toBeVisible();
     await expect(this.cartBadge).not.toBeVisible();
 
@@ -60,7 +78,7 @@ export class ProductDetailsPage {
     await expect(this.cartBadge).not.toBeVisible();
   }
 
-  async verifyBacktoProductsNavigation() {
+  async verifyBacktoProductsNavigation(): Promise<void> {
     await this.backtoproductNaviagtion.click();
     await expect(this.page).toHaveURL(/inventory\.html/);
   }
