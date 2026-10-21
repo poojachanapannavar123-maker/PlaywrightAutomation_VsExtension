@@ -21,10 +21,21 @@ export class ProductsPage {
     this.cartBadge = page.locator('[data-test="shopping-cart-badge"]');
   }
 
+  /**
+   * Verifies that the product list container is visible and displays six products.
+   * @returns A promise that resolves all the assertion passes
+   * @author Pooja
+   */
   async verifyproductListVisible() {
     await expect(this.productListContainer).toBeVisible();
     await expect(this.product).toHaveCount(6);
   }
+
+  /**
+   * Randomly selects a product from the list,retrives it's details,navigates to the product details page and returns the selected product information.
+   * @returns A promise containing selected product Name,Price and Image.
+   * @author Pooja
+   */
   async randomlypickedproduct(): Promise<{
     productName: string;
     productPrice: string;
@@ -48,10 +59,21 @@ export class ProductsPage {
     return { productName, productPrice, productImage: productImage ?? "" };
   }
 
+  /**
+   * Verifies the navigation to the cart page
+   * @returns Promise that resolves when the navigation completes
+   * @author Pooja
+   */
   async goToCart() {
     await this.cartIcon.click();
   }
 
+  /**
+   * Randomly selects a product and adds it to the cart, Indentifies products with visible add to cart before selecting one.
+   * @returns A promise that resolves to the name of the product added to the cart
+   * @throws An error if no products are available to add it to the cart
+   * @author Pooja
+   */
   async addToCartMethod() {
     const count: number = await this.product.count();
     const availableProductsIndexes: number[] = [];
@@ -89,10 +111,22 @@ export class ProductsPage {
     return productName;
   }
 
+  /**
+   * Verifies the cart badge with the expected item count.
+   * @param count
+   * @returns A promise that resolves when the assertion passes
+   * @author Pooja
+   */
   async verifyCartBadge(count: string): Promise<void> {
     await expect(this.cartBadge).toHaveText(count);
   }
 
+  /**
+   * filters the product list using the specifies keyword and verifies that the matching product is visible.
+   * @param productkeyword
+   * @returns A promise that resolves when the assertion passes
+   * @author Pooja
+   */
   async filteredProduct(productkeyword: string) {
     const matchingProduct = this.product.filter({
       hasText: productkeyword,

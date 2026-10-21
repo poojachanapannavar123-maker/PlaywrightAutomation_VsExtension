@@ -23,6 +23,12 @@ export class CartPage {
     this.checkoutoncart = this.page.getByRole("button", { name: "Checkout" });
   }
 
+  /**
+   * Verifies the product name on the cart page and visibility of the cart page buttons
+   * @param productName
+   * @returns A promise that resolves when all cart detail assertion passes
+   * @author Pooja
+   */
   async verifyCartDetails(productName: string): Promise<void> {
     await expect(this.productNameoncartPage).toHaveText(productName);
     await expect(this.removebuttonvisible).toBeVisible();
