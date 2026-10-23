@@ -39,7 +39,7 @@ export class LoginPage {
     const actualInvalidError = await this.invalidError.textContent();
     expect(
       actualInvalidError?.includes(
-        "Epic sadface: Sorry, this user has been locked out."
+        "Epic sadface: Username and password do not match any user in this service"
       )
     ).toBeTruthy();
   }
