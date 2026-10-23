@@ -2,7 +2,7 @@ import { testUsers, products } from "../testdata/credentials";
 import { test } from "../fixtures/contextFixture";
 
 for (const user of testUsers) {
-  test.describe("Sauce Demo", () => {
+  test.describe("Sauce Demo Products Page", () => {
     test(
       `TID004-category actions - ${user.userName}`,
       { tag: ["@products", "@smoke"] },
@@ -43,4 +43,13 @@ for (const user of testUsers) {
       }
     );
   });
+
+  test(
+    `TID017 click product using parameterized locator - ${user.userName}`,
+    { tag: ["@products", "@regression"] },
+    async ({ loginAs, productsPage }) => {
+      await loginAs(user.userName, user.password);
+      await productsPage.clickProductName("Sauce Labs Backpack");
+    }
+  );
 }

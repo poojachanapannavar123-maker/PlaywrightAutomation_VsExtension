@@ -2,7 +2,7 @@ import { testUsers, products } from "../testdata/credentials";
 import { test } from "../fixtures/contextFixture";
 
 for (const user of testUsers) {
-  test.describe("Sauce Demo", () => {
+  test.describe("Sauce Demo Product details Page", () => {
     test(
       `TID008-product description page actions - ${user.userName}`,
       { tag: ["@pdp", "@regression"] },

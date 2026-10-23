@@ -2,7 +2,7 @@ import { testUsers, products } from "../testdata/credentials";
 import { test } from "../fixtures/contextFixture";
 
 for (const user of testUsers) {
-  test.describe("Sauce Demo", () => {
+  test.describe("Sauce Demo Smoke test Page", () => {
     test(
       `TID007-Login actions - ${user.userName}`,
       { tag: "@login" },

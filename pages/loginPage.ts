@@ -20,11 +20,11 @@ export class LoginPage {
     this.invalidError = page.getByRole("alert");
   }
 
-  async goTo() {
+  async goTo(): Promise<void> {
     await this.page.goto("/");
   }
 
-  async validLoginMethod(userName: string, password: string) {
+  async validLoginMethod(userName: string, password: string): Promise<void> {
     await this.username.fill(userName);
     await this.password.fill(password);
     await this.login.click();
@@ -32,21 +32,27 @@ export class LoginPage {
     await expect(this.productList).toBeVisible();
   }
 
-  async invalidLoginMethod(userName: string, password: string) {
+  async invalidLoginMethod(userName: string, password: string): Promise<void> {
     await this.username.fill(userName);
     await this.password.fill(password);
     await this.login.click();
-    await expect(this.invalidError).toContainText(
-      "Epic sadface: Username and password do not match any user in this service"
-    );
+    const actualInvalidError = await this.invalidError.textContent();
+    expect(
+      actualInvalidError?.includes(
+        "Epic sadface: Username and password do not match any user in this service"
+      )
+    ).toBeTruthy();
   }
 
-  async lockedoutUserMethod(userName: string, password: string) {
+  async lockedoutUserMethod(userName: string, password: string): Promise<void> {
     await this.username.fill(userName);
     await this.password.fill(password);
     await this.login.click();
-    await expect(this.invalidError).toContainText(
-      "Epic sadface: Sorry, this user has been locked out."
-    );
+    const actualLockedError = await this.invalidError.textContent();
+    expect(
+      actualLockedError?.includes(
+        "Epic sadface: Sorry, this user has been locked out."
+      )
+    ).toBeTruthy();
   }
 }

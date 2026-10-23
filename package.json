@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test",
-    "chromium": "npx playwright test --project=chromium",
+    "test": "npx playwright test --project=chromium",
     "webkit": "npx playwright test --project=webkit",
     "firefox": "npx playwright test --project=firefox",
     "headed": "npx playwright test --headed",
