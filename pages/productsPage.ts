@@ -21,6 +21,10 @@ export class ProductsPage {
     this.cartBadge = page.locator('[data-test="shopping-cart-badge"]');
   }
 
+  getProductByName(productName: string): Locator {
+    return this.page.locator(`//*[contains(text(),"${productName}")]`);
+  }
+
   /**
    * click the product name using parameterized locator
    * @param productName
@@ -28,7 +32,7 @@ export class ProductsPage {
    * @author Pooja
    */
   async clickProductName(productName: string): Promise<void> {
-    this.page.locator(`//*[contains(text(),"${productName}")]`).click();
+    await this.getProductByName(productName).click();
   }
 
   async verifyproductListVisible(expectedCount: number): Promise<void> {
