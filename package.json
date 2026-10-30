@@ -1,7 +1,8 @@
 {
-  "name": "playwrightautomation_vsextension",
+  "name": "saucedemo-playwright-framework",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
+  "description": "End-to-end UI test automation framework for SauceDemo using Playwright and TypeScript with Page Object Model, custom fixtures, multi-environment config and GitHub Actions CI.",
   "scripts": {
     "test": "npx playwright test",
     "chromium": "npx playwright test --project=chromium",
@@ -15,10 +16,21 @@
     "qa": "ENV=QA npx playwright test",
     "uat": "ENV=UAT npx playwright test"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "keywords": [
+    "playwright",
+    "typescript",
+    "test-automation",
+    "e2e-testing",
+    "page-object-model",
+    "qa-automation",
+    "github-actions"
+  ],
+  "author": "Pooja Chanapannavar",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poojachanapannavar123-maker/saucedemo-playwright-framework.git"
+  },
   "devDependencies": {
     "@playwright/test": "^1.63.0",
     "@types/node": "^26.6.2"
