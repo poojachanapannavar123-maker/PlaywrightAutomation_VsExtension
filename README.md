@@ -213,7 +213,7 @@ To view a report from CI, open a workflow run and download the **playwright-repo
 
 ## Author
 
-**Pooja Chanapannavar**: [GitHub](https://github.com/poojachanapannavar123-maker) · [LinkedIn](https://www.linkedin.com/in/your-profile)
+**Pooja Chanapannavar**: [GitHub](https://github.com/poojachanapannavar123-maker) · [LinkedIn](https://www.linkedin.com/in/pooja-chanapannavar-07a7b2221/)
 
 ## License
 
