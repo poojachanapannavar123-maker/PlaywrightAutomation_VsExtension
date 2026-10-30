@@ -10,6 +10,8 @@ export class ProductsPage {
   cartBadge: Locator;
   productListContainer: Locator;
 
+  readonly productNameLocator = '//*[contains(text(),"PRODUCT_NAME")]';
+
   constructor(page: Page) {
     this.page = page;
     this.product = page.locator(".inventory_item");
@@ -21,8 +23,12 @@ export class ProductsPage {
     this.cartBadge = page.locator('[data-test="shopping-cart-badge"]');
   }
 
-  getProductByName(productName: string): Locator {
-    return this.page.locator(`//*[contains(text(),"${productName}")]`);
+  getProductLocator(productName: string): Locator {
+    const locator = this.productNameLocator.replace(
+      "PRODUCT_NAME",
+      productName
+    );
+    return this.page.locator(locator);
   }
 
   /**
@@ -32,7 +38,7 @@ export class ProductsPage {
    * @author Pooja
    */
   async clickProductName(productName: string): Promise<void> {
-    await this.getProductByName(productName).click();
+    await this.getProductLocator(productName).click();
   }
 
   async verifyproductListVisible(expectedCount: number): Promise<void> {
